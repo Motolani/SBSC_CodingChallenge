@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'joined_date',
     ];
 
     /**
@@ -43,5 +44,35 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
+
+    public function games()
+    {
+        return $this->belongsToMany(Game::class, 'scores');
+    }
+
+    public function getHighestScoreAttribute()
+    {
+        return $this->scores()->max('score');
+    }
+
+    public function getAverageScoreAttribute()
+    {
+        return $this->scores()->avg('score');
+    }
+
+    public function getHighestScoreGameAttribute()
+    {
+        return $this->scores()->orderBy('score', 'desc')->first()->game ?? null;
+    }
+
+    public function getMostRecentGameAttribute()
+    {
+        return $this->games()->latest()->first();
     }
 }
