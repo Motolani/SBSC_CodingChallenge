@@ -14,29 +14,29 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
-                    <br/>
+                    <h4>Member Details</h4>
                     <br/>
                         <div>
-                            <a type="button" class="btn btn-primary" href="{{url('/member/details')}}"> Member Details</a>
+                            <a type="button" class="btn btn-primary" href="{{url('/member/details')}}"> My Details</a>
 
                         </div>
                     <br/>
-                    <br/>
                     <hr>
+                    <h4>Games</h4>
+                    <br/>
                         <div class="row">
                             <div class="col-md-4">
                                 <a type="button" class="btn btn-info" href="{{url('/game/create')}}"> Create Game</a>
 
                             </div>
                             <div class="col-md-4">
-                                <a type="button" class="btn btn-success" href="#"> View Your Games</a>
-                                 {{-- in the view, add option to add players to the game, max of 5 --}}
+                                <a type="button" class="btn btn-success" href="{{url('/view/games')}}"> View Your Games</a>
+                            </div>
+                            <div class="col-md-4">
+                                <a type="button" class="btn btn-warning" href="{{url('/leaderboard/games')}}"> Leaderboard </a>
                             </div>
                         </div>
                     <br/>
-                    <br/>
-                    <hr>
                 </div>
             </div>
         </div>

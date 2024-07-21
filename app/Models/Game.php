@@ -9,13 +9,15 @@ class Game extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+	    'name','game_admin_id','player_count','date','status'
+	];
+
+
     public function scores()
     {
-        return $this->hasMany(Score::class);
+        return $this->hasMany(Score::class, 'game_id');
     }
 
-    public function members()
-    {
-        return $this->belongsToMany(User::class, 'scores');
-    }
+
 }

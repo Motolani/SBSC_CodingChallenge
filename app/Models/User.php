@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'games_played',
+        'average_score',
         'joined_date',
     ];
 
@@ -48,12 +50,12 @@ class User extends Authenticatable
 
     public function scores()
     {
-        return $this->hasMany(Score::class);
+        return $this->hasMany(Score::class, 'user_id');
     }
 
     public function games()
     {
-        return $this->belongsToMany(Game::class, 'scores');
+        return $this->belongsToMany(Game::class, 'scores', 'user_id', 'game_id');
     }
 
     public function getHighestScoreAttribute()
@@ -66,13 +68,26 @@ class User extends Authenticatable
         return $this->scores()->avg('score');
     }
 
+    // public function getHighestScoreGameAttribute()
+    // {
+    //     return $this->scores()->orderBy('score', 'desc')
+    //     ->first()->with('games') ?? null;
+    // }
     public function getHighestScoreGameAttribute()
     {
-        return $this->scores()->orderBy('score', 'desc')->first()->game ?? null;
+        $highestScore = $this->scores()
+                            ->orderByDesc('score')
+                            ->first();
+
+        if ($highestScore) {
+            return $highestScore->game;
+        }
+
+        return null;
     }
 
     public function getMostRecentGameAttribute()
     {
-        return $this->games()->latest()->first();
+        return $this->games()->latest()->first()->name;
     }
 }

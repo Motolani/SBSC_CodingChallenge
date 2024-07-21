@@ -18,14 +18,14 @@
 
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('message'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ session('message') }}
                         </div>
                     @endif
 
                     <div class="justify-content-center">
-                        <form method="POST" action="#">
+                        <form method="POST" action="{{url('/create/game')}}">
                             @csrf
 
                             <div class="row">

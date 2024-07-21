@@ -21,7 +21,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/member/details', [MembersController::class, 'memberDetails']);
-Route::get('/game/create', [GamesController::class, 'index']);
+Route::get('/game/create', [GamesController::class, 'create'])->name('create.game');
+Route::get('/view/games', [GamesController::class, 'index'])->name('view.games');
+Route::get('/leaderboard/games', [GamesController::class, 'leaderboard'])->name('view.games');
+Route::get('/game/details/{game}', [GamesController::class, 'gameDetails'])->name('details.games');
+Route::post('/create/game', [GamesController::class, 'createGame']);
+Route::post('/add/player', [GamesController::class, 'addPlayer']);
+Route::post('/game/start', [GamesController::class, 'startGame']);
+Route::post('/game/end', [GamesController::class, 'endGame']);
+Route::post('/game/update/score', [GamesController::class, 'updateScore']);
 
 require __DIR__.'/auth.php';
 

@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('game_admin_id');
+            $table->integer('player_count');
+            $table->integer('status')->default(0);
             $table->date('date');
             $table->timestamps();
         });
