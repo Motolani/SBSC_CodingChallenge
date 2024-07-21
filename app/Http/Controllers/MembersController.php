@@ -32,9 +32,16 @@ class MembersController extends Controller
         $mostRecentGame = $member->getMostRecentGameAttribute();
 
         $highestScoreGame = $member->getHighestScoreGameAttribute();
+        $highestScoreGameName =null;
+        $highestScoreDate =null;
+
         $highestScore = $member->getHighestScoreAttribute();
-        $highestScoreGameName = $highestScoreGame->name;
-        $highestScoreDate = $highestScoreGame->created_at;
+
+        if(isset($highestScore)){
+            $highestScoreGameName = $highestScoreGame->name;
+            $highestScoreDate = $highestScoreGame->created_at;
+        }
+
 
         $averageScore = $member->getAverageScoreAttribute();
 
@@ -49,6 +56,26 @@ class MembersController extends Controller
 
         return view('members.index', compact('member', 'highestScore','highestScoreGameName','highestScoreDate','averageScore', 'mostRecentGame'));
 
+    }
+
+    public function updateContact(Request $request)
+    {
+        Log::info($request);
+        $user = User::where('id', Auth::id());
+        if($request->email){
+            $user->update([
+                'email' => $request->email
+            ]);
+        }
+
+        if($request->phone){
+            $user->update([
+                'phone' => $request->phone
+            ]);
+        }
+
+        return redirect()->back()
+        ->with('message', 'Contact Update Successfully');
     }
 
 }

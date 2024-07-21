@@ -23,6 +23,11 @@
                             {{ session('message') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                     <div class="justify-content-center">
                         <form method="POST" action="{{url('/create/game')}}">

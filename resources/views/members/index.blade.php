@@ -23,9 +23,14 @@
 
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('message'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ session('message') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
                         </div>
                     @endif
 
@@ -70,7 +75,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p>{{ $averageScore ? $averageScore : 'No average score available' }} </p>
+                                    <p>{{ $averageScore ? number_format($averageScore, 1) : 'No average score available' }} </p>
                                 </div>
 
                             </div>
@@ -93,7 +98,8 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p>{{ $highestScore ? $highestScore : 'Highest score not available'}} </p>
+                                    <p>{{ $highestScore ? $highestScore : "No recent game"}} </p>
+
                                 </div>
                             </div>
                             </br>
@@ -104,7 +110,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <p>{{ $mostRecentGame ? $mostRecentGame : "No recent game"}} </p>
+                                    <p>{{ $highestScoreDate ? $highestScoreDate : 'Highest score not available'}} </p>
                                 </div>
                             </div>
                             </br>
@@ -128,7 +134,7 @@
 
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="POST" action="{{url('/add/player')}}">
+                        <form method="POST" action="{{url('/member/contact/update')}}">
                             @csrf
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
@@ -144,7 +150,7 @@
                                 <div class="row">
                                     <div class="col-md-8 ">
                                         <label> Email Address</label>
-                                        <input id="title"
+                                        <input id="email"
                                             type="email"
                                             name="email"
                                             value="{{ old('email', $member->email) }}"
@@ -155,17 +161,17 @@
                                 <div class="row">
                                     <div class="col-md-8 ">
                                         <label> Phone Number</label>
-                                        <input id="title"
-                                            type="title"
-                                            name="title"
+                                        <input id="phone"
+                                            type="phone"
+                                            name="phone"
                                             value="{{ old('phone', $member->phone) }}"
-                                            class="form-control @error('title') is-invalid @else is-valid @enderror">
+                                            class="form-control @error('phone') is-invalid @else is-valid @enderror">
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-primary" type="submit"> Add</button>
+                                <button class="btn btn-primary" type="submit"> Update</button>
                             </div>
                         </form>
                     </div>

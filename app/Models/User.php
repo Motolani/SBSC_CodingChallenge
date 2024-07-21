@@ -88,6 +88,7 @@ class User extends Authenticatable
 
     public function getMostRecentGameAttribute()
     {
-        return $this->games()->latest()->first()->name;
+        $latestGame = $this->games()->orderBy('updated_at', 'desc')->first();
+        return $latestGame ? $latestGame->name : null;
     }
 }

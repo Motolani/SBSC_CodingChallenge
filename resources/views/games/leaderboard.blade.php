@@ -23,6 +23,11 @@
                             {{ session('message') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                     <div class="justify-content-center">
                         <table class="table">
@@ -40,7 +45,7 @@
                                     <tr>
                                         <th>{{ $index + 1 }}</th>
                                         <td>{{$game->member->name}}</td>
-                                        <td>{{$game->avg_score}}</td>
+                                        <td>{{number_format($game->avg_score, 1)}}</td>
                                         <td>{{$game->member->games_played}}</td>
                                         <td>{{$game->member->joined_date}}</td>
                                     </tr>

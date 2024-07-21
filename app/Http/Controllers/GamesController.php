@@ -33,6 +33,11 @@ class GamesController extends Controller
             ->with('error', 'Failed to create game');
         }
 
+        if($request->member_id == Auth::id()){
+            return redirect()->back()
+            ->with('error', 'Can not create game against yourself');
+        }
+
         Log::info($request);
         Log::info(Carbon::now()->toString());
 
@@ -53,7 +58,7 @@ class GamesController extends Controller
             }
         }
 
-        return redirect()->route('create.game')
+        return redirect()->route('view.games')
         ->with('message', 'Game Successfully Created');
 
     }
@@ -68,7 +73,7 @@ class GamesController extends Controller
 
         if($userGames->exists())
         {
-            $games= $userGames->get();
+            $games= $userGames->orderByDesc('id')->get();
             Log::info($games);
         }else{
             $games= [];
@@ -89,23 +94,6 @@ class GamesController extends Controller
 
         Log::info('userGames');
         Log::info($user_games);
-
-        // $getPlayers = Score::where('game_id', 4)->with('member')->get();
-        // Log::info('getPlayers');
-        // Log::info($getPlayers);
-        // foreach($getPlayers as $player)
-        // {
-        //     Log::info('each player');
-        //     Log::info($player->member);
-
-
-        //     $gamesPlayed = $player->member->games_played;
-        //     $Players = $player->member->games_played;
-
-        //     Log::info('players');
-        //     Log::info($members);
-        // }
-
 
         return view('games.details', compact('user_games', 'members'));
 

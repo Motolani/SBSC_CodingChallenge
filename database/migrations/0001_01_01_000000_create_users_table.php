@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->date('joined_date');
-            $table->integer('games_played');
-            $table->decimal('average_score');
+            $table->integer('games_played')->default(0);
+            $table->decimal('average_score')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -23,6 +23,11 @@
                             {{ session('message') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                     <div class="justify-content-center">
                         <table class="table">
@@ -41,7 +46,7 @@
                                     <tr>
                                         <th>{{ $index + 1 }}</th>
                                         <td>{{$game->name}}</td>
-                                        <td>{{$game->date}}</td>
+                                        <td>{{$game->created_at}}</td>
                                         <td>{{$game->player_count}}</td>
                                         <td>{{$game->score}}</td>
                                         <td><a class='btn btn-info' href='{{ route('details.games', $game->id) }}'>View</a></td>
